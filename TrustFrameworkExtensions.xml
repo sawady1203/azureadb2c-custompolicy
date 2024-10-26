@@ -37,12 +37,12 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
-            <Item Key="client_id">ProxyIdentityExperienceFrameworkAppId</Item>
-            <Item Key="IdTokenAudience">IdentityExperienceFrameworkAppId</Item>
+            <Item Key="client_id">90fe4139-b2ae-486d-9299-0bd0be8cf2b7</Item>
+            <Item Key="IdTokenAudience">593dc6a2-8814-4972-8565-e2105cfca40b</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="ProxyIdentityExperienceFrameworkAppId" />
-            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="IdentityExperienceFrameworkAppId" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="90fe4139-b2ae-486d-9299-0bd0be8cf2b7" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="593dc6a2-8814-4972-8565-e2105cfca40b" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
