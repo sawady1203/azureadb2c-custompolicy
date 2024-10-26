@@ -14,7 +14,7 @@
   </BasePolicy>
 
   <UserJourneys>
-    <UserJourney Id="SignUpOrSignIn">
+    <UserJourney Id="CustomSignIn">
       <OrchestrationSteps>
 
         <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
@@ -162,7 +162,7 @@
   </SubJourneys>
 
   <RelyingParty>
-    <DefaultUserJourney ReferenceId="SignUpOrSignIn" />
+    <DefaultUserJourney ReferenceId="CustomSignIn" />
     <Endpoints>
       <!--points
       to refresh token journey when app makes refresh token request-->
