@@ -30,7 +30,7 @@
       <ClaimType Id="issuerUserId">
         <DisplayName>Username</DisplayName>
         <DataType>string</DataType>
-        <UserHelpText/>
+        <UserHelpText />
         <UserInputType>TextBox</UserInputType>
         <Restriction>
           <Pattern RegularExpression="^[a-zA-Z0-9]+[a-zA-Z0-9_-]*$" HelpText="The username you provided is not valid. It must begin with an alphabet or number and can contain alphabets, numbers and the following symbols: _ -" />
@@ -63,7 +63,7 @@
       <ClaimType Id="signInName">
         <DisplayName>Sign in name</DisplayName>
         <DataType>string</DataType>
-        <UserHelpText/>
+        <UserHelpText />
         <UserInputType>TextBox</UserInputType>
       </ClaimType>
 
@@ -97,7 +97,8 @@
         <UserHelpText>Enter new password</UserHelpText>
         <UserInputType>Password</UserInputType>
         <Restriction>
-          <Pattern RegularExpression="^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)|(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]))([A-Za-z\d@#$%^&amp;*\-_+=[\]{}|\\:',?/`~&quot;();!]|\.(?!@)){8,16}$" HelpText="8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits (0-9), and one or more of the following symbols: @ # $ % ^ &amp; * - _ + = [ ] { } | \ : ' , ? / ` ~ &quot; ( ) ; ." />
+          <Pattern RegularExpression="^((?=.*[a-z])(?=.*[A-Z])(?=.*\d)|(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]))([A-Za-z\d@#$%^&amp;*\-_+=[\]{}|\\:',?/`~&quot;();!]|\.(?!@)){8,16}$"
+            HelpText="8-16 characters, containing 3 out of 4 of the following: Lowercase characters, uppercase characters, digits (0-9), and one or more of the following symbols: @ # $ % ^ &amp; * - _ + = [ ] { } | \ : ' , ? / ` ~ &quot; ( ) ; ." />
         </Restriction>
       </ClaimType>
       <!-- The password regular expression above is constructed for AAD passwords based on restrictions at https://msdn.microsoft.com/en-us/library/azure/jj943764.aspx
@@ -151,13 +152,13 @@
         <DefaultPartnerClaimTypes>
           <Protocol Name="OpenIdConnect" PartnerClaimType="sub" />
         </DefaultPartnerClaimTypes>
-        <UserHelpText/>
+        <UserHelpText />
       </ClaimType>
 
       <ClaimType Id="alternativeSecurityId">
         <DisplayName>AlternativeSecurityId</DisplayName>
         <DataType>string</DataType>
-        <UserHelpText/>
+        <UserHelpText />
       </ClaimType>
 
       <ClaimType Id="mailNickName">
@@ -174,7 +175,7 @@
           <Protocol Name="OpenIdConnect" PartnerClaimType="idp" />
           <Protocol Name="SAML2" PartnerClaimType="http://schemas.microsoft.com/identity/claims/identityprovider" />
         </DefaultPartnerClaimTypes>
-        <UserHelpText/>
+        <UserHelpText />
       </ClaimType>
 
       <ClaimType Id="displayName">
@@ -228,7 +229,7 @@
       <ClaimType Id="newUser">
         <DisplayName>User is new</DisplayName>
         <DataType>boolean</DataType>
-        <UserHelpText/>
+        <UserHelpText />
       </ClaimType>
 
       <ClaimType Id="executed-SelfAsserted-Input">
@@ -243,7 +244,8 @@
         <UserHelpText>Specifies whether the user was authenticated at Social IDP or local account.</UserHelpText>
       </ClaimType>
 
-      <!--claims for refresh token revocation-->
+      <!--claims
+      for refresh token revocation-->
       <ClaimType Id="refreshTokenIssuedOnDateTime">
         <DisplayName>refreshTokenIssuedOnDateTime</DisplayName>
         <DataType>string</DataType>
@@ -378,7 +380,8 @@
         </InputParameters>
       </ClaimsTransformation>
 
-      <!--claims transformation for refresh token revocation -->
+      <!--claims
+      transformation for refresh token revocation -->
       <ClaimsTransformation Id="AssertRefreshTokenIssuedLaterThanValidFromDate" TransformationMethod="AssertDateTimeIsGreaterThan">
         <InputClaims>
           <InputClaim ClaimTypeReferenceId="refreshTokenIssuedOnDateTime" TransformationClaimType="leftOperand" />
@@ -1063,41 +1066,43 @@
         </TechnicalProfile>
       </TechnicalProfiles>
     </ClaimsProvider>
-  
-  <!--claims provider for refresh token revocation-->
-  <ClaimsProvider>
-    <DisplayName>Refresh token journey</DisplayName>
-    <TechnicalProfiles>
-      <TechnicalProfile Id="RefreshTokenReadAndSetup">
-        <DisplayName>Trustframework Policy Engine Refresh Token Setup Technical Profile</DisplayName>
-        <Protocol Name="None" />
-        <OutputClaims>
-          <OutputClaim ClaimTypeReferenceId="objectId" />
-          <OutputClaim ClaimTypeReferenceId="refreshTokenIssuedOnDateTime" />
-           <!--Requirement: Claims that you return in the relying party technical profile output claims
+
+    <!--claims
+    provider for refresh token revocation-->
+    <ClaimsProvider>
+      <DisplayName>Refresh token journey</DisplayName>
+      <TechnicalProfiles>
+        <TechnicalProfile Id="RefreshTokenReadAndSetup">
+          <DisplayName>Trustframework Policy Engine Refresh Token Setup Technical Profile</DisplayName>
+          <Protocol Name="None" />
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="objectId" />
+            <OutputClaim ClaimTypeReferenceId="refreshTokenIssuedOnDateTime" />
+            <!--Requirement:
+            Claims that you return in the relying party technical profile output claims
             that are not stored in Azure AD B2C, must be added to the output claims collection here-->
-          <!--
+            <!--
           
           <OutputClaim ClaimTypeReferenceId="RESTAPIclaim1" />
           <OutputClaim ClaimTypeReferenceId="IDPclaim1" />
            -->
-        </OutputClaims>
-      </TechnicalProfile>
+          </OutputClaims>
+        </TechnicalProfile>
 
 
-      <TechnicalProfile Id="AAD-UserReadUsingObjectId-CheckRefreshTokenDate">
-        <OutputClaims>
-          <OutputClaim ClaimTypeReferenceId="refreshTokensValidFromDateTime" />
-          <OutputClaim ClaimTypeReferenceId="displayName" />
-        </OutputClaims>
-        <OutputClaimsTransformations>
-          <OutputClaimsTransformation ReferenceId="AssertRefreshTokenIssuedLaterThanValidFromDate" />
-        </OutputClaimsTransformations>
-        <IncludeTechnicalProfile ReferenceId="AAD-UserReadUsingObjectId" />
-      </TechnicalProfile>
-    </TechnicalProfiles>
-  </ClaimsProvider>
-</ClaimsProviders>
+        <TechnicalProfile Id="AAD-UserReadUsingObjectId-CheckRefreshTokenDate">
+          <OutputClaims>
+            <OutputClaim ClaimTypeReferenceId="refreshTokensValidFromDateTime" />
+            <OutputClaim ClaimTypeReferenceId="displayName" />
+          </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="AssertRefreshTokenIssuedLaterThanValidFromDate" />
+          </OutputClaimsTransformations>
+          <IncludeTechnicalProfile ReferenceId="AAD-UserReadUsingObjectId" />
+        </TechnicalProfile>
+      </TechnicalProfiles>
+    </ClaimsProvider>
+  </ClaimsProviders>
 
   <UserJourneys>
 
@@ -1270,7 +1275,7 @@
         </OrchestrationStep>
 
         <!-- Extra steps can be added before or after this step for REST API or claims transformation calls-->
-        
+
         <OrchestrationStep Order="2" Type="ClaimsExchange">
           <ClaimsExchanges>
             <ClaimsExchange Id="CheckRefreshTokenDateFromAadExchange" TechnicalProfileReferenceId="AAD-UserReadUsingObjectId-CheckRefreshTokenDate" />
