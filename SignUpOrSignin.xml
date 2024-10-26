@@ -19,6 +19,7 @@
 
         <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
           <ClaimsProviderSelections>
+            <ClaimsProviderSelection TargetClaimsExchangeId="ForgotPasswordExchange" />
             <ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange" />
             <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
           </ClaimsProviderSelections>
@@ -36,11 +37,25 @@
             </Precondition>
           </Preconditions>
           <ClaimsExchanges>
+            <ClaimsExchange Id="ForgotPasswordExchange" TechnicalProfileReferenceId="ForgotPassword" />
             <ClaimsExchange Id="FacebookExchange" TechnicalProfileReferenceId="Facebook-OAUTH" />
             <ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
           </ClaimsExchanges>
         </OrchestrationStep>
-        
+
+        <!-- SSPRステップ -->
+        <OrchestrationStep Order="3" Type="InvokeSubJourney">
+          <Preconditions>
+            <Precondition Type="ClaimsExist" ExecuteActionsIf="false">
+              <Value>isForgotPassword</Value>
+              <Action>SkipThisOrchestrationStep</Action>
+            </Precondition>
+          </Preconditions>
+          <JourneyList>
+            <Candidate SubJourneyReferenceId="PasswordReset" />
+          </JourneyList>
+        </OrchestrationStep>
+
         <!-- For social IDP authentication, attempt to find the user account in the directory. -->
         <OrchestrationStep Order="3" Type="ClaimsExchange">
           <Preconditions>
